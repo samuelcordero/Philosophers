@@ -15,7 +15,7 @@ LDFLAGS = -L libft -lft
 NAME = philosophers
 CFLAGS = -Wall -Wextra -Werror -O3 #-g3 -fsanitize=address
 INCLUDE = inc/philosophers.h 
-SRC = src/main.c
+SRC = src/main.c src/utils.c
 OBJ = $(SRC:.c=.o)
 UNAME := $(shell uname -s)
 CC = gcc
