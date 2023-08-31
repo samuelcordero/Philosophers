@@ -10,8 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-LIBFT = libft/libft.a
-LDFLAGS = -L libft -lft
 NAME = philosophers
 CFLAGS = -Wall -Wextra -Werror -O3 #-g3 -fsanitize=address
 INCLUDE = inc/philosophers.h 
@@ -22,11 +20,7 @@ CC = gcc
 
 all: $(NAME)
 
-$(LIBFT):
-	@make bonus -C ./libft
-
-	
-$(NAME): $(LIBFT) $(OBJ) $(INCLUDE) 
+$(NAME): $(OBJ) $(INCLUDE) 
 	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS)
 
 
