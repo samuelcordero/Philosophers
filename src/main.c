@@ -10,6 +10,6 @@ static void	check_args(int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	check_args(argc, argv);
-	ft_printf("testing\n");
+	printf("testing\n");
 	return (0);
 }

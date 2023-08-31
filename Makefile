@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosophers
+NAME = philo
 CFLAGS = -Wall -Wextra -Werror -O3 #-g3 -fsanitize=address
 INCLUDE = inc/philosophers.h 
 SRC = src/main.c src/utils.c
@@ -28,11 +28,9 @@ $(NAME): $(OBJ) $(INCLUDE)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	@make clean -C ./libft
 	$(RM) $(OBJ)
 
 fclean: clean
-	@make fclean -C ./libft
 	$(RM) $(NAME)
 
 re:: fclean
@@ -44,6 +42,6 @@ asan:: re
 
 
 normi:
-	@norminette src inc libft
+	@norminette src inc
 
 .PHONY: all clean fclean re normi
