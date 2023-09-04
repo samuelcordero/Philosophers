@@ -2,9 +2,16 @@
 # define PHILO_STRUCTS_H
 # include <pthread.h>
 
+typedef struct s_sack t_sack;
+
 typedef struct s_philo
 {
-	pthread_t	*p;
+	pthread_t				tid;
+	pthread_mutex_t	eating_mtx;
+	t_sack					*sack;
+	int							meal_ctr;
+	int							id;
+	long						last_meal;
 }	t_philo;
 
 typedef struct s_sack
@@ -16,6 +23,7 @@ typedef struct s_sack
 	int							time_to_die;
 	int							nbr_of_philos;
 	int							meals;
+	long						start_time;
 }	t_sack;
 
 #endif
