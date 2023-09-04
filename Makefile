@@ -11,11 +11,10 @@
 # **************************************************************************** #
 
 NAME = philo
-CFLAGS = -Wall -Wextra -Werror -O3 #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -pthread -O3
 INCLUDE = inc/philosophers.h 
 SRC = src/main.c src/utils.c
 OBJ = $(SRC:.c=.o)
-UNAME := $(shell uname -s)
 CC = gcc
 
 all: $(NAME)
