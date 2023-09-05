@@ -21,7 +21,7 @@ typedef struct s_sack
 	int							time_to_sleep;
 	int							time_to_eat;
 	int							time_to_die;
-	int							nbr_of_philos;
+	int							nbr_philos;
 	int							meals;
 	long						start_time;
 }	t_sack;

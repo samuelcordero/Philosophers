@@ -26,7 +26,7 @@ static t_sack	*check_args(int argc, char **argv)
 	if (!res)
 		ft_error_exit("Couldn't allocate mem\n", 1);
 	memset(res, 0, sizeof(t_sack));
-	res->nbr_of_philos = ft_atoi(argv[1]);
+	res->nbr_philos = ft_atoi(argv[1]);
 	res->time_to_die = ft_atoi(argv[2]);
 	res->time_to_eat = ft_atoi(argv[3]);
 	res->time_to_sleep = ft_atoi(argv[4]);
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	t_sack	*sack;
 	long t;
 	sack = check_args(argc, argv);
-	printf("testing:\nphilos: %i\ntime2die %i\ntime2sleep %i\ntime2eat %i\ntotal meals %i\n", sack->nbr_of_philos, sack->time_to_die, sack->time_to_sleep, sack->time_to_eat, sack->meals);
+	printf("testing:\nphilos: %i\ntime2die %i\ntime2sleep %i\ntime2eat %i\ntotal meals %i\n", sack->nbr_philos, sack->time_to_die, sack->time_to_sleep, sack->time_to_eat, sack->meals);
 	t = ft_time();
 	printf("time: %ld\n", t);
 	ft_sleep(2100);
