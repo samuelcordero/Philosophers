@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:07 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/08 14:58:59 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:40:09 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv)
 	t_sack	*sack;
 
 	sack = check_args(argc, argv);
-	printf("testing:\nphilos: %i\ntime2die %i\ntime2sleep %i\ntime2eat %i\ntotal meals %i\n", sack->nbr_philos, sack->time_to_die, sack->time_to_sleep, sack->time_to_eat, sack->meals);
+	printf("testing:\nphilos: %i\ntime2die %i\ntime2eat %i\ntime2sleep %i\ntotal meals %i\n", sack->nbr_philos, sack->time_to_die, sack->time_to_eat, sack->time_to_sleep, sack->meals);
 	init_philos(sack);
 	return (0);
 }

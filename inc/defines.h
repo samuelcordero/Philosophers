@@ -1,7 +1,8 @@
 #ifndef DEFINES_H
 # define DEFINES_H
 
-# define FORK_MSG "has taken a fork"
+# define LFORK_MSG "has taken a fork from his left"
+# define RFORK_MSG "has taken a fork from his right"
 # define EATING_MSG "is eating"
 # define SLEEPING_MSG "is sleeping"
 # define THINKING_MSG "is thinking"

@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:14 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/08 14:58:04 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:54:32 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void	take_forks(t_sack *sack, int id)
 {
 	pthread_mutex_lock(&sack->fork_arr[id % sack->nbr_philos]);
-	ft_printer(sack, id, FORK_MSG);
+	ft_printer(sack, id, LFORK_MSG);
 	pthread_mutex_lock(&sack->fork_arr[(id + 1) % sack->nbr_philos]);
-	ft_printer(sack, id, FORK_MSG);
+	ft_printer(sack, id, RFORK_MSG);
 }
 
 static void	release_forks(t_sack *sack, int id)
@@ -34,13 +34,17 @@ static void	*philos_routine(void *arg)
 		usleep(50);
 	while (1)
 	{
-		take_forks(philo->sack, philo->id);
+		if (millis_since(philo->last_meal) < philo->sack->time_to_die)
+			take_forks(philo->sack, philo->id);
+		else
+			break ;
 		pthread_mutex_lock(&philo->eating_mtx);
 		philo->last_meal = ft_time();
 		pthread_mutex_unlock(&philo->eating_mtx);
 		ft_printer(philo->sack, philo->id, EATING_MSG);
 		ft_sleep(philo->sack->time_to_eat);
 		release_forks(philo->sack, philo->id);
+		philo->meal_ctr++;
 		ft_printer(philo->sack, philo->id, SLEEPING_MSG);
 		ft_sleep(philo->sack->time_to_sleep);
 		ft_printer(philo->sack, philo->id, THINKING_MSG);
@@ -52,7 +56,6 @@ static void	fill_philo(t_philo *philo, t_sack *sack, int id)
 {
 	philo->sack = sack;
 	philo->id = id;
-	printf("philo id: %i\n", philo->id);
 	philo->meal_ctr = 0;
 	philo->last_meal = ft_time();
 	if (pthread_mutex_init(&philo->eating_mtx, NULL))
