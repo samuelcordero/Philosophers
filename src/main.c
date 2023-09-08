@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:07 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/08 13:11:30 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:58:59 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static t_sack	*check_args(int argc, char **argv)
 	res->time_to_sleep = ft_atoi(argv[4]);
 	res->meals = -1;
 	res->state = 0;
+	res->start_time = ft_time();
 	if (argv[5])
 		res->meals = ft_atoi(argv[5]);
 	if (pthread_mutex_init(&res->printer, NULL))
@@ -54,7 +55,7 @@ static t_sack	*check_args(int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_sack	*sack;
-	long t;
+
 	sack = check_args(argc, argv);
 	printf("testing:\nphilos: %i\ntime2die %i\ntime2sleep %i\ntime2eat %i\ntotal meals %i\n", sack->nbr_philos, sack->time_to_die, sack->time_to_sleep, sack->time_to_eat, sack->meals);
 	init_philos(sack);

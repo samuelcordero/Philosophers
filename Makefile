@@ -6,7 +6,7 @@
 #    By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:21:07 by sacorder          #+#    #+#              #
-#    Updated: 2023/09/08 13:12:28 by sacorder         ###   ########.fr        #
+#    Updated: 2023/09/08 15:04:49 by sacorder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,11 @@ asan:: CFLAGS += -fsanitize=address -g3
 asan:: LDFLAGS += -fsanitize=address
 asan:: re
 
+tsan:: CFLAGS += -fsanitize=thread -g3
+tsan:: LDFLAGS += -fsanitize=thread
+tsan:: re
 
 normi:
 	@norminette src inc
 
-.PHONY: all clean fclean re normi
+.PHONY: all clean fclean re asan tsan normi

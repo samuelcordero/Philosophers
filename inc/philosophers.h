@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:00 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/08 13:05:31 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:40:27 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,9 @@ long	millis_since(long t);
 //philos.c
 
 void	init_philos(t_sack *s);
+
+//printer.c
+
+void	ft_printer(t_sack *sack, int id, char *action);
 
 #endif
