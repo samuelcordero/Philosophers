@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/05 20:17:19 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/06 13:18:39 by sacorder         ###   ########.fr       */
+/*   Created: 2023/09/08 12:57:59 by sacorder          #+#    #+#             */
+/*   Updated: 2023/09/08 13:04:00 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
 
-long	ft_time(void)
+void	ft_printer(t_sack *sack, long tstamp, int id, char *action)
 {
-	struct timeval	t;
-
-	gettimeofday(&t, NULL);
-	return (t.tv_sec * 1000 + t.tv_usec / 1000);
+	pthread_mutex_lock(&sack->printer);
+	printf("%ld %d %s\n", tstamp, id + 1, action);
+	pthread_mutex_unlock(&sack->printer);
 }
-
-long	millis_since(long t)
-{
-	return (ft_time() - t);
-}
-
-void	ft_sleep(long t)
-{
-	long	end;
-
-	end = ft_time() + t;
-	while (ft_time() < end)
-		usleep(50);
-}
-

@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:00 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/05 20:17:01 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:05:31 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/time.h>
 # include <stdlib.h>
 # include "philo_structs.h"
+# include "defines.h"
 
 //utils.c
 
@@ -30,5 +31,9 @@ int		ft_atoi(char *str);
 long	ft_time(void);
 void	ft_sleep(long t);
 long	millis_since(long t);
+
+//philos.c
+
+void	init_philos(t_sack *s);
 
 #endif

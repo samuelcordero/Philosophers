@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:07 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/05 20:17:08 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:11:30 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	check_str_posint(char *str)
 	while (*str)
 	{
 		if (!ft_space_or_digit(*str))
-			ft_error_exit("Invalid args\n", 2);
+			ft_error_exit(BAD_ARGS, 2);
 		++str;
 	}
 }
@@ -31,7 +31,7 @@ static t_sack	*check_args(int argc, char **argv)
 
 	i = 0;
 	if (argc < 5 || argc > 6)
-		ft_error_exit("Invalid number of args\n", 1);
+		ft_error_exit(BAD_ARGS_NBR, 1);
 	while (argv[++i])
 		check_str_posint(argv[i]);
 	res = malloc(sizeof(t_sack));
@@ -43,8 +43,11 @@ static t_sack	*check_args(int argc, char **argv)
 	res->time_to_eat = ft_atoi(argv[3]);
 	res->time_to_sleep = ft_atoi(argv[4]);
 	res->meals = -1;
+	res->state = 0;
 	if (argv[5])
 		res->meals = ft_atoi(argv[5]);
+	if (pthread_mutex_init(&res->printer, NULL))
+		ft_error_exit("Couldn't init printer mutex\n", 1);
 	return (res);
 }
 
@@ -54,9 +57,6 @@ int	main(int argc, char **argv)
 	long t;
 	sack = check_args(argc, argv);
 	printf("testing:\nphilos: %i\ntime2die %i\ntime2sleep %i\ntime2eat %i\ntotal meals %i\n", sack->nbr_philos, sack->time_to_die, sack->time_to_sleep, sack->time_to_eat, sack->meals);
-	t = ft_time();
-	printf("time: %ld\n", t);
-	ft_sleep(2100);
-	printf("time: %ld\n", millis_since(t));
+	init_philos(sack);
 	return (0);
 }

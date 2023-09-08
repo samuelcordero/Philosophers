@@ -6,14 +6,14 @@
 #    By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:21:07 by sacorder          #+#    #+#              #
-#    Updated: 2023/09/05 20:17:44 by sacorder         ###   ########.fr        #
+#    Updated: 2023/09/08 13:12:28 by sacorder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CFLAGS = -Wall -Wextra -Werror -pthread -O3
 INCLUDE = inc/philosophers.h 
-SRC = src/main.c src/utils.c src/time.c src/philos.c
+SRC = src/main.c src/utils.c src/time.c src/philos.c src/printer.c
 OBJ = $(SRC:.c=.o)
 CC = gcc
 
@@ -21,7 +21,6 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(INCLUDE) 
 	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS)
-
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<

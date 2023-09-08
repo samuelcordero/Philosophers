@@ -6,12 +6,11 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:25 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/05 20:17:26 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:18:18 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
-#include <unistd.h>
 
 void	ft_error_exit(char *str, int n)
 {
