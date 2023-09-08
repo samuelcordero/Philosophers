@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:07 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/08 15:40:09 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:07:10 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static t_sack	*check_args(int argc, char **argv)
 	res = malloc(sizeof(t_sack));
 	if (!res)
 		ft_error_exit("Couldn't allocate mem\n", 1);
-	memset(res, 0, sizeof(t_sack));
 	res->nbr_philos = ft_atoi(argv[1]);
 	res->time_to_die = ft_atoi(argv[2]);
 	res->time_to_eat = ft_atoi(argv[3]);
@@ -49,6 +48,8 @@ static t_sack	*check_args(int argc, char **argv)
 		res->meals = ft_atoi(argv[5]);
 	if (pthread_mutex_init(&res->printer, NULL))
 		ft_error_exit("Couldn't init printer mutex\n", 1);
+	if (pthread_mutex_init(&res->state_mutex, NULL))
+		ft_error_exit("Couldn't init state mutex\n", 1);
 	return (res);
 }
 
