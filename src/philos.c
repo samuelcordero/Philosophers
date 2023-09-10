@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:14 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/08 16:27:55 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:08:14 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 static void	take_forks(t_sack *sack, int id)
 {
-	pthread_mutex_lock(&sack->fork_arr[id % sack->nbr_philos]);
+	int	left;
+	int	right;
+
+	left = id % sack->nbr_philos;
+	right = (id + 1) % sack->nbr_philos;
+	pthread_mutex_lock(&sack->fork_arr[left]);
 	ft_printer(sack, id, LFORK_MSG);
-	pthread_mutex_lock(&sack->fork_arr[(id + 1) % sack->nbr_philos]);
+	pthread_mutex_lock(&sack->fork_arr[right]);
 	ft_printer(sack, id, RFORK_MSG);
 }
 

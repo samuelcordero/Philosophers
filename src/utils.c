@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
+#include <pthread.h>
 
 void	ft_error_exit(char *str, int n)
 {
@@ -51,6 +52,9 @@ void	ft_printer(t_sack *sack, int id, char *action)
 
 	tstamp = ft_time() - sack->start_time;
 	pthread_mutex_lock(&sack->printer);
-	printf("(%ld ms) philosopher %d %s\n", tstamp, id + 1, action);
+	pthread_mutex_lock(&sack->state_mutex);
+	if (!sack->state)
+		printf("(%ld ms) philosopher %d %s\n", tstamp, id + 1, action);
+	pthread_mutex_unlock(&sack->state_mutex);
 	pthread_mutex_unlock(&sack->printer);
 }
