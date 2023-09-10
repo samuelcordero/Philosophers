@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:16:51 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/08 16:06:18 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/10 22:20:03 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PHILO_STRUCTS_H
 # include <pthread.h>
 
-typedef struct s_sack t_sack;
+typedef struct s_sack	t_sack;
 
 typedef struct s_philo
 {
@@ -37,6 +37,7 @@ typedef struct s_sack
 	int				time_to_die;
 	int				nbr_philos;
 	int				meals;
+	int				philos_done;
 	long			start_time;
 	char			state;
 }	t_sack;
