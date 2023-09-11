@@ -6,11 +6,11 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:19 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/11 13:31:14 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:59:12 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/philosophers.h"
+#include "philosophers.h"
 
 long	ft_time(void)
 {

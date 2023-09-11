@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:00 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/11 13:34:23 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:53:31 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 //utils.c
 
-void	ft_error_exit(char *str, int n);
+int		ft_error_exit(char *str, int n);
 int		ft_space_or_digit(char c);
 int		ft_atoi(char *str);
 void	ft_printer(t_sack *sack, int id, char *action);
@@ -37,10 +37,10 @@ long	millis_since(long t);
 
 //philos.c
 
-void	init(t_sack *s);
+int		init(t_sack *s);
 
 //checker.c
 
-void	checker(t_sack *sack);
+int		checker(t_sack *sack);
 
 #endif

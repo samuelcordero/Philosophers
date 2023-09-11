@@ -6,13 +6,13 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:03:21 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/11 13:31:09 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:28:16 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/philosophers.h"
+#include "philosophers.h"
 
-void	checker(t_sack *sack)
+int	checker(t_sack *sack)
 {
 	int	i;
 
@@ -31,9 +31,10 @@ void	checker(t_sack *sack)
 			}
 			pthread_mutex_unlock(&sack->state_mutex);
 			pthread_mutex_unlock(&sack->philo_arr[i].eating_mtx);
+			usleep(50);
 			pthread_mutex_lock(&sack->state_mutex);
 		}
 	}
 	pthread_mutex_unlock(&sack->state_mutex);
-	exit (0);
+	return (0);
 }

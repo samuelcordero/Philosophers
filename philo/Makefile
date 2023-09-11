@@ -6,13 +6,13 @@
 #    By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:21:07 by sacorder          #+#    #+#              #
-#    Updated: 2023/09/11 13:31:16 by sacorder         ###   ########.fr        #
+#    Updated: 2023/09/11 18:25:00 by sacorder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-CFLAGS = -Wall -Wextra -Werror -pthread -O3
-INCLUDE = inc/philosophers.h 
+INCLUDE = inc
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE) -pthread
 SRC = src/main.c src/utils.c src/time.c src/philos.c src/checker.c
 OBJ = $(SRC:.c=.o)
 CC = gcc
