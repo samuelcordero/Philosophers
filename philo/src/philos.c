@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:14 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/11 18:26:59 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:03:18 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	*philos_routine(void *arg)
 	if (philo->id % 2)
 		usleep(50);
 	pthread_mutex_lock(&philo->sack->state_mutex);
-	while (!philo->sack->state && philo->meal_ctr < philo->sack->meals)
+	while (!philo->sack->state && philo->meal_ctr++ < philo->sack->meals)
 	{
 		pthread_mutex_unlock(&philo->sack->state_mutex);
 		take_forks(philo->sack, philo->id);
@@ -75,8 +75,8 @@ static void	*philos_routine(void *arg)
 		ft_printer(philo->sack, philo->id, SLEEPING_MSG);
 		ft_sleep(philo->sack->time_to_sleep);
 		ft_printer(philo->sack, philo->id, THINKING_MSG);
+		usleep(50);
 		pthread_mutex_lock(&philo->sack->state_mutex);
-		philo->meal_ctr++;
 	}
 	philo->sack->philos_done++;
 	pthread_mutex_unlock(&philo->sack->state_mutex);

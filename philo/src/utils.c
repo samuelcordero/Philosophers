@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:25 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/11 18:27:26 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:01:39 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	ft_printer(t_sack *sack, int id, char *action)
 			millis_since(sack->start_time), id + 1, action);
 	pthread_mutex_unlock(&sack->state_mutex);
 	pthread_mutex_unlock(&sack->printer);
-	usleep(50);
 }
 
 void	ft_print_dead(t_sack *sack, int id, char *action)
