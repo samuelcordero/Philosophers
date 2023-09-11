@@ -23,7 +23,7 @@ void	checker(t_sack *sack)
 		while (++i < sack->nbr_philos && !sack->state)
 		{
 			pthread_mutex_lock(&sack->philo_arr[i].eating_mtx);
-			if (millis_since(sack->philo_arr[i].last_meal) >= sack->time_to_die
+			if (millis_since(sack->philo_arr[i].last_meal) > sack->time_to_die
 				&& sack->philo_arr[i].meal_ctr < sack->meals)
 			{
 				ft_print_dead(sack, i, DEAD_MSG);
