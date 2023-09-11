@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:25 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/10 22:19:11 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:37:25 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	ft_space_or_digit(char c)
 
 int	ft_atoi(char *str)
 {
-	int	i;
-	int	res;
+	int		i;
+	long	res;
 
 	i = 0;
 	res = 0;
@@ -41,6 +41,8 @@ int	ft_atoi(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = res * 10 + str[i] - '0';
+		if (res > INT_MAX)
+			ft_error_exit(ARG2BIG, 1);
 		++i;
 	}
 	return (res);
@@ -57,4 +59,12 @@ void	ft_printer(t_sack *sack, int id, char *action)
 		printf("(%ld ms) philosopher %d %s\n", tstamp, id + 1, action);
 	pthread_mutex_unlock(&sack->state_mutex);
 	pthread_mutex_unlock(&sack->printer);
+}
+
+void	ft_print_dead(t_sack *sack, int id, char *action)
+{
+	long	tstamp;
+
+	tstamp = ft_time() - sack->start_time;
+	printf("(%ld ms) philosopher %d %s\n", tstamp, id + 1, action);
 }

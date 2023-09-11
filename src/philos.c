@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:14 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/10 22:21:09 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:31:07 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,39 @@ static void	take_forks(t_sack *sack, int id)
 
 	left = id % sack->nbr_philos;
 	right = (id + 1) % sack->nbr_philos;
-	pthread_mutex_lock(&sack->fork_arr[left]);
-	ft_printer(sack, id, LFORK_MSG);
-	pthread_mutex_lock(&sack->fork_arr[right]);
-	ft_printer(sack, id, RFORK_MSG);
+	if (left < right)
+	{
+		pthread_mutex_lock(&sack->fork_arr[left]);
+		ft_printer(sack, id, FORK_MSG);
+		pthread_mutex_lock(&sack->fork_arr[right]);
+		ft_printer(sack, id, FORK_MSG);
+	}
+	else
+	{
+		pthread_mutex_lock(&sack->fork_arr[right]);
+		ft_printer(sack, id, FORK_MSG);
+		pthread_mutex_lock(&sack->fork_arr[left]);
+		ft_printer(sack, id, FORK_MSG);
+	}
 }
 
 static void	release_forks(t_sack *sack, int id)
 {
-	pthread_mutex_unlock(&sack->fork_arr[id % sack->nbr_philos]);
-	pthread_mutex_unlock(&sack->fork_arr[(id + 1) % sack->nbr_philos]);
+	int	left;
+	int	right;
+
+	left = id % sack->nbr_philos;
+	right = (id + 1) % sack->nbr_philos;
+	if (left < right)
+	{
+		pthread_mutex_unlock(&sack->fork_arr[left]);
+		pthread_mutex_unlock(&sack->fork_arr[right]);
+	}
+	else
+	{
+		pthread_mutex_unlock(&sack->fork_arr[right]);
+		pthread_mutex_unlock(&sack->fork_arr[left]);
+	}
 }
 
 static void	*philos_routine(void *arg)
@@ -71,7 +94,7 @@ static void	fill_philo(t_philo *philo, t_sack *sack, int id)
 	pthread_create(&philo->tid, NULL, &philos_routine, philo);
 }
 
-void	init_philos(t_sack *s)
+void	init(t_sack *s)
 {
 	int	i;
 

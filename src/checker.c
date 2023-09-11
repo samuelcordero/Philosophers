@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:03:21 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/10 22:18:40 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:31:09 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	checker(t_sack *sack)
 		while (++i < sack->nbr_philos && !sack->state)
 		{
 			pthread_mutex_lock(&sack->philo_arr[i].eating_mtx);
-			if (millis_since(sack->philo_arr[i].last_meal) > sack->time_to_die
+			if (millis_since(sack->philo_arr[i].last_meal) >= sack->time_to_die
 				&& sack->philo_arr[i].meal_ctr < sack->meals)
 			{
-				ft_printer(sack, i, DEAD_MSG);
+				ft_print_dead(sack, i, DEAD_MSG);
 				sack->state = !sack->state;
 			}
 			pthread_mutex_unlock(&sack->state_mutex);

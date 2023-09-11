@@ -6,14 +6,11 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:07 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/10 22:20:46 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:34:13 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
-#include <limits.h>
-#include <stdio.h>
-#include <string.h>
 
 static void	check_str_posint(char *str)
 {
@@ -56,9 +53,12 @@ int	main(int argc, char **argv)
 	t_sack	sack;
 
 	sack = check_args(argc, argv);
-	printf("philos: %i\ntime2die %i\ntime2eat %i\ntime2sleep %i\ntotal meals %i\n",
-		sack.nbr_philos, sack.time_to_die, sack.time_to_eat,
-		sack.time_to_sleep, sack.meals);
-	init_philos(&sack);
+	init(&sack);
 	return (0);
 }
+
+/*
+		printf("philos: %i\ntime2die %i\ntime2eat %i\ntime2sleep %i\ntotal meals %i\n",
+		sack.nbr_philos, sack.time_to_die, sack.time_to_eat,
+		sack.time_to_sleep, sack.meals);
+ */
