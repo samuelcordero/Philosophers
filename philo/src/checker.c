@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:03:21 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/11 18:28:16 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:40:38 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int	checker(t_sack *sack)
 		}
 	}
 	pthread_mutex_unlock(&sack->state_mutex);
+	usleep(100);
 	return (0);
 }

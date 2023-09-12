@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:00 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/11 17:53:31 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:44:25 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/time.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <string.h>
 # include "philo_structs.h"
 # include "defines.h"
 

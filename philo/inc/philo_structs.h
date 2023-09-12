@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:16:51 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/11 13:31:12 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:29:18 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_sack
 {
 	t_philo			*philo_arr;
 	pthread_mutex_t	*fork_arr;
-	pthread_mutex_t	printer;
 	pthread_mutex_t	state_mutex;
 	int				time_to_sleep;
 	int				time_to_eat;

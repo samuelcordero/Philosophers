@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:25 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/11 20:01:39 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:28:59 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ int	ft_atoi(char *str)
 
 void	ft_printer(t_sack *sack, int id, char *action)
 {
-	pthread_mutex_lock(&sack->printer);
 	pthread_mutex_lock(&sack->state_mutex);
 	if (!sack->state)
 		printf("%ld %d %s\n",
 			millis_since(sack->start_time), id + 1, action);
 	pthread_mutex_unlock(&sack->state_mutex);
-	pthread_mutex_unlock(&sack->printer);
 }
 
 void	ft_print_dead(t_sack *sack, int id, char *action)

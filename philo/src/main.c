@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:07 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/11 17:56:01 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:49:23 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,10 @@ static int	fill_sack(char **argv, t_sack *res)
 	res->time_to_eat = ft_atoi(argv[3]);
 	res->time_to_sleep = ft_atoi(argv[4]);
 	res->meals = INT_MAX;
-	res->state = 0;
 	res->philos_done = 0;
 	res->start_time = ft_time();
 	if (argv[5])
 		res->meals = ft_atoi(argv[5]);
-	if (pthread_mutex_init(&res->printer, NULL))
-		return (ft_error_exit("Couldn't init printer mutex\n", 1));
 	if (pthread_mutex_init(&res->state_mutex, NULL))
 		return (ft_error_exit("Couldn't init state mutex\n", 1));
 	return (recheck(res));
@@ -58,6 +55,7 @@ int	main(int argc, char **argv)
 {
 	t_sack	sack;
 
+	memset(&sack, 0, sizeof(sack));
 	if (argc < 5 || argc > 6)
 		return (ft_error_exit(BAD_ARGS_NBR, 1));
 	if (fill_sack(argv, &sack))

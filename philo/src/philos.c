@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:14 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/11 20:03:18 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:10:31 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,8 @@ static void	take_forks(t_sack *sack, int id)
 
 static void	release_forks(t_sack *sack, int id)
 {
-	int	left;
-	int	right;
-
-	left = id % sack->nbr_philos;
-	right = (id + 1) % sack->nbr_philos;
-	if (left < right)
-	{
-		pthread_mutex_unlock(&sack->fork_arr[left]);
-		pthread_mutex_unlock(&sack->fork_arr[right]);
-	}
-	else
-	{
-		pthread_mutex_unlock(&sack->fork_arr[right]);
-		pthread_mutex_unlock(&sack->fork_arr[left]);
-	}
+	pthread_mutex_unlock(&sack->fork_arr[id % sack->nbr_philos]);
+	pthread_mutex_unlock(&sack->fork_arr[(id + 1) % sack->nbr_philos]);
 }
 
 static void	*philos_routine(void *arg)
@@ -104,10 +91,8 @@ int	init(t_sack *s)
 	if (!s->fork_arr)
 		return (ft_error_exit("Couldn`t allocate fork's mutexes\n", 1));
 	while (++i < s->nbr_philos)
-	{
 		if (pthread_mutex_init(&s->fork_arr[i], NULL))
 			return (ft_error_exit("Couldn't init fork mutex\n", 1));
-	}
 	s->philo_arr = malloc(sizeof(t_philo) * s->nbr_philos);
 	if (!s->philo_arr)
 		return (ft_error_exit("Couldn't allocate philos\n", 1));
