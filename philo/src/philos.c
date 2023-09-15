@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:14 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/12 17:10:31 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/15 12:35:54 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,24 @@ static void	*philos_routine(void *arg)
 	philo = arg;
 	if (philo->id % 2)
 		usleep(50);
-	pthread_mutex_lock(&philo->sack->state_mutex);
-	while (!philo->sack->state && philo->meal_ctr++ < philo->sack->meals)
+	while (1)
 	{
-		pthread_mutex_unlock(&philo->sack->state_mutex);
 		take_forks(philo->sack, philo->id);
 		pthread_mutex_lock(&philo->eating_mtx);
 		philo->last_meal = ft_time();
-		pthread_mutex_unlock(&philo->eating_mtx);
+		philo->meal_ctr++;
 		ft_printer(philo->sack, philo->id, EATING_MSG);
+		pthread_mutex_unlock(&philo->eating_mtx);
 		ft_sleep(philo->sack->time_to_eat);
 		release_forks(philo->sack, philo->id);
 		ft_printer(philo->sack, philo->id, SLEEPING_MSG);
 		ft_sleep(philo->sack->time_to_sleep);
 		ft_printer(philo->sack, philo->id, THINKING_MSG);
-		usleep(50);
 		pthread_mutex_lock(&philo->sack->state_mutex);
+		if (philo->sack->state)
+			break ;
+		pthread_mutex_unlock(&philo->sack->state_mutex);
 	}
-	philo->sack->philos_done++;
 	pthread_mutex_unlock(&philo->sack->state_mutex);
 	return (NULL);
 }
@@ -78,7 +78,6 @@ static int	fill_philo(t_philo *philo, t_sack *sack, int id)
 	philo->last_meal = ft_time();
 	if (pthread_mutex_init(&philo->eating_mtx, NULL))
 		return (ft_error_exit("Couldn't init philo mutex\n", 1));
-	pthread_create(&philo->tid, NULL, &philos_routine, philo);
 	return (0);
 }
 
@@ -102,7 +101,14 @@ int	init(t_sack *s)
 			return (1);
 	i = -1;
 	while (++i < s->nbr_philos)
-		pthread_detach(s->philo_arr[i].tid);
+	{
+		pthread_create(&s->philo_arr[i].tid, NULL,
+			&philos_routine, &s->philo_arr[i]);
+		usleep(50);
+	}
 	checker(s);
+	i = -1;
+	while (++i < s->nbr_philos)
+		pthread_join(s->philo_arr[i].tid, NULL);
 	return (0);
 }
