@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:16:51 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/12 16:29:18 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:13:36 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_sack
 	t_philo			*philo_arr;
 	pthread_mutex_t	*fork_arr;
 	pthread_mutex_t	state_mutex;
+	pthread_mutex_t	printer_mutex;
 	int				time_to_sleep;
 	int				time_to_eat;
 	int				time_to_die;
@@ -39,6 +40,7 @@ typedef struct s_sack
 	int				philos_done;
 	long			start_time;
 	char			state;
+	char			print_ok;
 }	t_sack;
 
 #endif

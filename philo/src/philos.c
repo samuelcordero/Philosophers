@@ -6,33 +6,36 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:14 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/15 12:35:54 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:36:06 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	take_forks(t_sack *sack, int id)
+static char	take_forks(t_philo *philo, int id)
 {
 	int	left;
 	int	right;
 
-	left = id % sack->nbr_philos;
-	right = (id + 1) % sack->nbr_philos;
+	left = id % philo->sack->nbr_philos;
+	right = (id + 1) % philo->sack->nbr_philos;
 	if (left < right)
 	{
-		pthread_mutex_lock(&sack->fork_arr[left]);
-		ft_printer(sack, id, FORK_MSG);
-		pthread_mutex_lock(&sack->fork_arr[right]);
-		ft_printer(sack, id, FORK_MSG);
+		pthread_mutex_lock(&philo->sack->fork_arr[left]);
+		ft_printer(philo->sack, id, FORK_MSG);
+		pthread_mutex_lock(&philo->sack->fork_arr[right]);
+		ft_printer(philo->sack, id, FORK_MSG);
+		return (1);
 	}
-	else
+	else if (left != right)
 	{
-		pthread_mutex_lock(&sack->fork_arr[right]);
-		ft_printer(sack, id, FORK_MSG);
-		pthread_mutex_lock(&sack->fork_arr[left]);
-		ft_printer(sack, id, FORK_MSG);
+		pthread_mutex_lock(&philo->sack->fork_arr[right]);
+		ft_printer(philo->sack, id, FORK_MSG);
+		pthread_mutex_lock(&philo->sack->fork_arr[left]);
+		ft_printer(philo->sack, id, FORK_MSG);
+		return (1);
 	}
+	return (0);
 }
 
 static void	release_forks(t_sack *sack, int id)
@@ -41,7 +44,7 @@ static void	release_forks(t_sack *sack, int id)
 	pthread_mutex_unlock(&sack->fork_arr[(id + 1) % sack->nbr_philos]);
 }
 
-static void	*philos_routine(void *arg)
+/* static void	*philos_routine(void *arg)
 {
 	t_philo	*philo;
 
@@ -54,8 +57,8 @@ static void	*philos_routine(void *arg)
 		pthread_mutex_lock(&philo->eating_mtx);
 		philo->last_meal = ft_time();
 		philo->meal_ctr++;
-		ft_printer(philo->sack, philo->id, EATING_MSG);
 		pthread_mutex_unlock(&philo->eating_mtx);
+		ft_printer(philo->sack, philo->id, EATING_MSG);
 		ft_sleep(philo->sack->time_to_eat);
 		release_forks(philo->sack, philo->id);
 		ft_printer(philo->sack, philo->id, SLEEPING_MSG);
@@ -68,6 +71,33 @@ static void	*philos_routine(void *arg)
 	}
 	pthread_mutex_unlock(&philo->sack->state_mutex);
 	return (NULL);
+} */
+
+static void	*philos_routine(void *arg)
+{
+	if (((t_philo *)arg)->id % 2)
+		usleep(50);
+	while (1)
+	{
+		if (take_forks((t_philo *)arg, ((t_philo *)arg)->id))
+		{
+			pthread_mutex_lock(&((t_philo *)arg)->eating_mtx);
+			((t_philo *)arg)->last_meal = ft_time();
+			((t_philo *)arg)->meal_ctr++;
+			pthread_mutex_unlock(&((t_philo *)arg)->eating_mtx);
+			ft_printer(((t_philo *)arg)->sack, ((t_philo *)arg)->id, EAT_MSG);
+			ft_sleep(((t_philo *)arg)->sack->time_to_eat);
+			release_forks(((t_philo *)arg)->sack, ((t_philo *)arg)->id);
+			ft_printer(((t_philo *)arg)->sack, ((t_philo *)arg)->id, SLEEP_MSG);
+			ft_sleep(((t_philo *)arg)->sack->time_to_sleep);
+			ft_printer(((t_philo *)arg)->sack, ((t_philo *)arg)->id, THINK_MSG);
+		}
+		pthread_mutex_lock(&((t_philo *)arg)->sack->state_mutex);
+		if (((t_philo *)arg)->sack->state)
+			break ;
+		pthread_mutex_unlock(&((t_philo *)arg)->sack->state_mutex);
+	}
+	return (pthread_mutex_unlock(&((t_philo *)arg)->sack->state_mutex), NULL);
 }
 
 static int	fill_philo(t_philo *philo, t_sack *sack, int id)
@@ -101,11 +131,8 @@ int	init(t_sack *s)
 			return (1);
 	i = -1;
 	while (++i < s->nbr_philos)
-	{
 		pthread_create(&s->philo_arr[i].tid, NULL,
 			&philos_routine, &s->philo_arr[i]);
-		usleep(50);
-	}
 	checker(s);
 	i = -1;
 	while (++i < s->nbr_philos)

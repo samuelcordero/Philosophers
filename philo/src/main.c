@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:07 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/12 16:49:23 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:46:42 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static int	fill_sack(char **argv, t_sack *res)
 	res->start_time = ft_time();
 	if (argv[5])
 		res->meals = ft_atoi(argv[5]);
+	if (pthread_mutex_init(&res->printer_mutex, NULL))
+		return (ft_error_exit("Couldn't init state mutex\n", 1));
 	if (pthread_mutex_init(&res->state_mutex, NULL))
 		return (ft_error_exit("Couldn't init state mutex\n", 1));
 	return (recheck(res));
