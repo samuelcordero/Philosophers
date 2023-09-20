@@ -6,13 +6,13 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:03:21 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/18 15:19:05 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:59:43 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	check_philo(int i, t_sack *sack)
+/* static void	check_philo(int i, t_sack *sack)
 {
 	pthread_mutex_lock(&sack->philo_arr[i].eating_mtx);
 	if (millis_since(sack->philo_arr[i].last_meal) > sack->time_to_die)
@@ -26,9 +26,9 @@ static void	check_philo(int i, t_sack *sack)
 	pthread_mutex_unlock(&sack->philo_arr[i].eating_mtx);
 	usleep(10);
 	pthread_mutex_lock(&sack->state_mutex);
-}
+} */
 
-int	checker(t_sack *sack)
+/* int	checker(t_sack *sack)
 {
 	int	i;
 
@@ -44,4 +44,4 @@ int	checker(t_sack *sack)
 	}
 	pthread_mutex_unlock(&sack->state_mutex);
 	return (0);
-}
+} */

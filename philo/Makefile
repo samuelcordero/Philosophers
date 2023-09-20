@@ -6,7 +6,7 @@
 #    By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:21:07 by sacorder          #+#    #+#              #
-#    Updated: 2023/09/11 18:25:00 by sacorder         ###   ########.fr        #
+#    Updated: 2023/09/20 16:26:35 by sacorder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,6 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(INCLUDE) 
 	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	$(RM) $(OBJ)

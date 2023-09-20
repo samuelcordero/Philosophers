@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:00 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/12 16:44:25 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:57:14 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_error_exit(char *str, int n);
 int		ft_space_or_digit(char c);
 int		ft_atoi(char *str);
 void	ft_printer(t_sack *sack, int id, char *action);
-void	ft_print_dead(t_sack *sack, int id, char *action);
+void	ft_print_dead(t_sack *sack, int id);
 
 //time.c
 
