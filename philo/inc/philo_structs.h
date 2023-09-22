@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:16:51 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/20 16:17:21 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:54:44 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ typedef struct s_philo
 	int				meal_ctr;
 	int				id;
 	long			last_meal;
-	char			philo_state;
+	int				left_fork;
+	int				right_fork;
 }	t_philo;
 
 typedef struct s_sack
 {
 	t_philo			*philo_arr;
 	pthread_mutex_t	*fork_arr;
-	char			*froks_states;
 	pthread_mutex_t	state_mutex;
 	pthread_mutex_t	printer_mutex;
 	int				time_to_sleep;

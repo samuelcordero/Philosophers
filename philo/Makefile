@@ -6,14 +6,18 @@
 #    By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:21:07 by sacorder          #+#    #+#              #
-#    Updated: 2023/09/20 16:26:35 by sacorder         ###   ########.fr        #
+#    Updated: 2023/09/22 14:22:02 by sacorder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 INCLUDE = inc
 CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE) -pthread
-SRC = src/main.c src/utils.c src/time.c src/philos.c src/checker.c
+SRC = 	src/main.c \
+		src/utils.c \
+		src/time.c \
+		src/philos.c \
+		src/controller.c
 OBJ = $(SRC:.c=.o)
 CC = gcc
 

@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:00 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/20 15:57:14 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:20:07 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ long	millis_since(long t);
 
 //philos.c
 
-int		init(t_sack *s);
+void	*philos_routine(void *arg);
 
 //checker.c
 
-int		checker(t_sack *sack);
+int		init(t_sack *s);
 
 #endif

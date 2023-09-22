@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:25 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/20 15:56:13 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:07:39 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ void	ft_printer(t_sack *sack, int id, char *action)
 void	ft_print_dead(t_sack *sack, int id)
 {
 	pthread_mutex_lock(&sack->printer_mutex);
-	sack->print_ok = !sack->print_ok;
-	printf("%ld %d %s\n", millis_since(sack->start_time),
-		id + 1, DEAD_MSG);
+	if (!sack->print_ok)
+	{
+		sack->print_ok = !sack->print_ok;
+		printf("%ld %d %s\n", millis_since(sack->start_time),
+			id + 1, DEAD_MSG);
+	}
 	pthread_mutex_unlock(&sack->printer_mutex);
 }
