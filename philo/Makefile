@@ -6,13 +6,13 @@
 #    By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:21:07 by sacorder          #+#    #+#              #
-#    Updated: 2023/09/22 14:22:02 by sacorder         ###   ########.fr        #
+#    Updated: 2023/09/22 15:11:56 by sacorder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 INCLUDE = inc
-CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE) -pthread
+CFLAGS = -Wall -Wextra -Werror -O3 -I$(INCLUDE) -pthread
 SRC = 	src/main.c \
 		src/utils.c \
 		src/time.c \
