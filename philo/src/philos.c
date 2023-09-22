@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:14 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/22 14:39:21 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:46:47 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,10 @@ void	*philos_routine(void *arg)
 	while (!philo->sack->state)
 	{
 		pthread_mutex_unlock(&philo->sack->state_mutex);
-		if (millis_since(philo->last_meal)
-			> philo->sack->time_to_die)
-		{
-			ft_print_dead(philo->sack, philo->id);
-			pthread_mutex_lock(&philo->sack->state_mutex);
-			break ;
-		}
 		if (take_forks(arg))
 			dinner_wakey_wakey(philo);
 		pthread_mutex_lock(&philo->sack->state_mutex);
 	}
-	philo->sack->state = 1;
 	return (pthread_mutex_unlock(&philo->sack->state_mutex), NULL);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   controller.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:03:21 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/22 14:20:25 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:05:22 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,14 @@
 static void	check_philo(int i, t_sack *sack)
 {
 	pthread_mutex_lock(&sack->philo_arr[i].philo_mtx);
-	if (sack->philo_arr[i].meal_ctr >= sack->meals)
+	if (millis_since(sack->philo_arr[i].last_meal) > sack->time_to_die)
+	{
+		ft_print_dead(sack, sack->philo_arr[i].id);
+		pthread_mutex_lock(&sack->state_mutex);
+		sack->state = 1;
+		pthread_mutex_unlock(&sack->state_mutex);
+	}
+	else if (sack->philo_arr[i].meal_ctr >= sack->meals)
 		sack->philos_done++;
 	pthread_mutex_unlock(&sack->philo_arr[i].philo_mtx);
 }
