@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:07 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/20 16:19:07 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/26 01:25:57 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,24 @@ static int	fill_sack(char **argv, t_sack *res)
 		res->meals = ft_atoi(argv[5]);
 	if (pthread_mutex_init(&res->printer_mutex, NULL))
 		return (ft_error_exit("Couldn't init state mutex\n", 1));
-	if (pthread_mutex_init(&res->state_mutex, NULL))
-		return (ft_error_exit("Couldn't init state mutex\n", 1));
 	return (recheck(res));
+}
+static int	start(t_sack *sack)
+{
+	int			i;
+	pthread_t	meal_checker_thr;
+	pthread_t	death_checker_thr;
+
+	i = -1;
+	while (++i < sack->nbr_philos)
+		pthread_create(&sack->philo_arr[i].tid, NULL,
+			&philos_routine, &sack->philo_arr[i]);
+	pthread_create(&meal_checker_thr, NULL, &meal_checker, sack);
+	pthread_create(&death_checker_thr, NULL, &death_checker, sack);
+	i = -1;
+	while (++i < sack->nbr_philos)
+		pthread_join(sack->philo_arr[i].tid, NULL);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -62,7 +77,9 @@ int	main(int argc, char **argv)
 		return (ft_error_exit(BAD_ARGS_NBR, 1));
 	if (fill_sack(argv, &sack))
 		return (1);
-	return (init(&sack));
+	if (init(&sack))
+		return (1);
+	return (start(&sack));
 }
 
 /*

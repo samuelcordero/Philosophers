@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:00 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/22 14:20:07 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/26 00:36:53 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,23 @@ long	millis_since(long t);
 //philos.c
 
 void	*philos_routine(void *arg);
+void	set_state(t_philo *philo, int val);
+void	set_last_meal(t_philo *philo);
+void	inc_meal_ctr(t_philo *philo);
 
-//checker.c
 
+//controller.c
+
+void	*meal_checker(void *arg);
+void	*death_checker(void *arg);
 int		init(t_sack *s);
+
+//philo_utils.c
+
+int		get_state(t_philo *philo);
+long	get_last_meal(t_philo *philo);
+int		get_meal_ctr(t_philo *philo);
+char	take_forks(t_philo *philo);
+void	release_forks(t_philo *philo);
 
 #endif
