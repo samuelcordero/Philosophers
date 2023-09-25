@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:03:21 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/22 15:05:22 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/25 13:37:46 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,7 @@ int	init(t_sack *s)
 			return (1);
 	i = -1;
 	while (++i < s->nbr_philos)
-	{
 		pthread_create(&s->philo_arr[i].tid, NULL,
 			&philos_routine, &s->philo_arr[i]);
-		usleep(5);
-	}
 	return (checker(s));
 }

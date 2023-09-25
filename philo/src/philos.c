@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:14 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/22 14:46:47 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/25 13:35:56 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	release_forks(t_philo *philo)
 	pthread_mutex_unlock(&philo->sack->fork_arr[philo->right_fork]);
 }
 
-static void	dinner_wakey_wakey(t_philo *philo)
+static void	dinner_siesta(t_philo *philo)
 {
 	ft_printer(philo->sack, philo->id, EAT_MSG);
 	pthread_mutex_lock(&philo->philo_mtx);
@@ -43,7 +43,6 @@ static void	dinner_wakey_wakey(t_philo *philo)
 	ft_printer(philo->sack, philo->id, SLEEP_MSG);
 	ft_sleep(philo->sack->time_to_sleep);
 	ft_printer(philo->sack, philo->id, THINK_MSG);
-	usleep(50);
 }
 
 void	*philos_routine(void *arg)
@@ -52,13 +51,13 @@ void	*philos_routine(void *arg)
 
 	philo = arg;
 	if (philo->id % 2)
-		usleep(50);
+		usleep(100);
 	pthread_mutex_lock(&philo->sack->state_mutex);
 	while (!philo->sack->state)
 	{
 		pthread_mutex_unlock(&philo->sack->state_mutex);
 		if (take_forks(arg))
-			dinner_wakey_wakey(philo);
+			dinner_siesta(philo);
 		pthread_mutex_lock(&philo->sack->state_mutex);
 	}
 	return (pthread_mutex_unlock(&philo->sack->state_mutex), NULL);
