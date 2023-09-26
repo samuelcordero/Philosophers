@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:19 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/22 13:48:53 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:54:13 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	ft_sleep(long t)
 
 	end = ft_time() + t;
 	while (ft_time() < end)
-		usleep(50);
+		usleep(100);
 }

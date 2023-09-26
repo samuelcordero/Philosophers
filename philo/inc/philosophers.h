@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:00 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/26 00:36:53 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:19:05 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	set_state(t_philo *philo, int val);
 void	set_last_meal(t_philo *philo);
 void	inc_meal_ctr(t_philo *philo);
 
-
 //controller.c
 
-void	*meal_checker(void *arg);
-void	*death_checker(void *arg);
+//void	*meal_checker(void *arg);
+//void	*death_checker(void *arg);
+void	checker(t_sack *sack);
 int		init(t_sack *s);
 
 //philo_utils.c

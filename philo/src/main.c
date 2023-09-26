@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:07 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/26 01:25:57 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:29:35 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	check_str_posint(char *str)
 
 static int	recheck(t_sack *res)
 {
-	if (res->nbr_philos == -1 || res->time_to_die == -1 || res->meals == -1
+	if (res->nbr_philos == -1 || res->t2d == -1 || res->meals == -1
 		|| res->time_to_sleep == -1 || res->time_to_eat == -1)
 		return (1);
 	return (0);
@@ -38,7 +38,7 @@ static int	fill_sack(char **argv, t_sack *res)
 		if (check_str_posint(argv[res->philos_done]))
 			return (1);
 	res->nbr_philos = ft_atoi(argv[1]);
-	res->time_to_die = ft_atoi(argv[2]);
+	res->t2d = ft_atoi(argv[2]);
 	res->time_to_eat = ft_atoi(argv[3]);
 	res->time_to_sleep = ft_atoi(argv[4]);
 	res->meals = INT_MAX;
@@ -47,21 +47,41 @@ static int	fill_sack(char **argv, t_sack *res)
 	if (argv[5])
 		res->meals = ft_atoi(argv[5]);
 	if (pthread_mutex_init(&res->printer_mutex, NULL))
+		return (ft_error_exit("Couldn't init printer state mutex\n", 1));
+	if (pthread_mutex_init(&res->state_mutex, NULL))
 		return (ft_error_exit("Couldn't init state mutex\n", 1));
 	return (recheck(res));
 }
+
+/* int	get_sim_state(t_sack *sack)
+{
+	int	res;
+	pthread_mutex_lock(&sack->state_mutex);
+	res = sack->state;
+	pthread_mutex_unlock(&sack->state_mutex);
+	return (res);
+}
+
+void	set_sim_state(t_sack *sack, int val)
+{
+	pthread_mutex_lock(&sack->state_mutex);
+	sack->state = val;
+	pthread_mutex_unlock(&sack->state_mutex);
+} */
+
 static int	start(t_sack *sack)
 {
-	int			i;
-	pthread_t	meal_checker_thr;
-	pthread_t	death_checker_thr;
+	int	i;
 
 	i = -1;
+	pthread_mutex_lock(&sack->state_mutex);
 	while (++i < sack->nbr_philos)
 		pthread_create(&sack->philo_arr[i].tid, NULL,
 			&philos_routine, &sack->philo_arr[i]);
-	pthread_create(&meal_checker_thr, NULL, &meal_checker, sack);
-	pthread_create(&death_checker_thr, NULL, &death_checker, sack);
+	sack->start_time = ft_time();
+	pthread_mutex_unlock(&sack->state_mutex);
+	while (sack->state == 0)
+		checker(sack);
 	i = -1;
 	while (++i < sack->nbr_philos)
 		pthread_join(sack->philo_arr[i].tid, NULL);
