@@ -6,7 +6,7 @@
 #    By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:21:07 by sacorder          #+#    #+#              #
-#    Updated: 2023/09/26 15:52:32 by sacorder         ###   ########.fr        #
+#    Updated: 2023/09/26 18:13:08 by sacorder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ asan:: LDFLAGS += -fsanitize=address
 asan:: re
 
 tsan:: CFLAGS += -fsanitize=thread -g3
-tsan:: LDFLAGS += -fsanitize=thread
+tsan:: LDFLAGS += -fsanitize=thread -g3
 tsan:: re
 
 normi:
