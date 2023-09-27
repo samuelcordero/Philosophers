@@ -6,22 +6,11 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:07 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/27 02:13:00 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:16:52 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-static int	check_str_posint(char *str)
-{
-	while (*str)
-	{
-		if (!ft_space_or_digit(*str))
-			return (ft_error_exit(BAD_ARGS, 1));
-		++str;
-	}
-	return (0);
-}
 
 static int	recheck(t_sack *res)
 {
@@ -72,42 +61,6 @@ static int	fill_sack(char **argv, t_sack *res)
 	if (pthread_mutex_init(&res->state_mutex, NULL))
 		return (ft_error_exit("Couldn't init state mutex\n", 1));
 	return (recheck(res));
-}
-
-/* int	get_sim_state(t_sack *sack)
-{
-	int	res;
-	pthread_mutex_lock(&sack->state_mutex);
-	res = sack->state;
-	pthread_mutex_unlock(&sack->state_mutex);
-	return (res);
-}
-
-void	set_sim_state(t_sack *sack, int val)
-{
-	pthread_mutex_lock(&sack->state_mutex);
-	sack->state = val;
-	pthread_mutex_unlock(&sack->state_mutex);
-} */
-
-static int	start(t_sack *sack)
-{
-	int	i;
-
-	i = -1;
-	pthread_mutex_lock(&sack->state_mutex);
-	while (++i < sack->nbr_philos)
-		pthread_create(&sack->philo_arr[i].tid, NULL,
-			&philos_routine, &sack->philo_arr[i]);
-	sack->start_time = ft_time();
-	pthread_mutex_unlock(&sack->state_mutex);
-	while (sack->state == 0)
-		checker(sack);
-	i = -1;
-	sack->start_time = ft_time();
-	while (++i < sack->nbr_philos)
-		pthread_join(sack->philo_arr[i].tid, NULL);
-	return (0);
 }
 
 int	main(int argc, char **argv)

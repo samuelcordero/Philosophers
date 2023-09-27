@@ -6,19 +6,19 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:03:21 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/27 02:36:02 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:24:29 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	killall(t_sack *sack)
+static void	end_sim(t_sack *sack)
 {
-	int	i;
-
-	i = -1;
-	while (++i < sack->nbr_philos)
-		set_state(&sack->philo_arr[i], -1);
+	killall(sack);
+	pthread_mutex_lock(&sack->printer_mutex);
+	sack->print_ok = 1;
+	pthread_mutex_unlock(&sack->printer_mutex);
+	sack->state = 1;
 }
 
 void	checker(t_sack *sack)
@@ -44,13 +44,7 @@ void	checker(t_sack *sack)
 			done++;
 	}
 	if (done == sack->nbr_philos && sack->state == 0)
-	{
-		killall(sack);
-		pthread_mutex_lock(&sack->printer_mutex);
-		sack->print_ok = 1;
-		pthread_mutex_unlock(&sack->printer_mutex);
-		sack->state = 1;
-	}
+		end_sim(sack);
 }
 
 static int	fill_philo(t_philo *philo, t_sack *sack, int id)
@@ -91,5 +85,26 @@ int	init(t_sack *s)
 	while (++i < s->nbr_philos)
 		if (fill_philo(&s->philo_arr[i], s, i))
 			return (1);
+	return (0);
+}
+
+int	start(t_sack *sack)
+{
+	int	i;
+
+	i = -1;
+	pthread_mutex_lock(&sack->state_mutex);
+	while (++i < sack->nbr_philos)
+		if (pthread_create(&sack->philo_arr[i].tid, NULL,
+				&philos_routine, &sack->philo_arr[i]))
+			return (1);
+	sack->start_time = ft_time();
+	pthread_mutex_unlock(&sack->state_mutex);
+	while (sack->state == 0)
+		checker(sack);
+	i = -1;
+	sack->start_time = ft_time();
+	while (++i < sack->nbr_philos)
+		pthread_join(sack->philo_arr[i].tid, NULL);
 	return (0);
 }

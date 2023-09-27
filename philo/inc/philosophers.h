@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:00 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/26 17:19:05 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:17:12 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ int		ft_atoi(char *str);
 void	ft_printer(t_sack *sack, int id, char *action);
 void	ft_print_dead(t_sack *sack, int id);
 
-//time.c
+//utils2.c
 
 long	ft_time(void);
 void	ft_sleep(long t);
 long	millis_since(long t);
+void	killall(t_sack *sack);
+int		check_str_posint(char *str);
 
 //philos.c
 
@@ -45,10 +47,9 @@ void	inc_meal_ctr(t_philo *philo);
 
 //controller.c
 
-//void	*meal_checker(void *arg);
-//void	*death_checker(void *arg);
 void	checker(t_sack *sack);
 int		init(t_sack *s);
+int		start(t_sack *sack);
 
 //philo_utils.c
 

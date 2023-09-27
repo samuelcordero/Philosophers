@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:19 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/26 18:13:39 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:16:17 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,24 @@ void	ft_sleep(long t)
 	end = ft_time() + t;
 	while (ft_time() < end)
 		usleep(700);
+}
+
+void	killall(t_sack *sack)
+{
+	int	i;
+
+	i = -1;
+	while (++i < sack->nbr_philos)
+		set_state(&sack->philo_arr[i], -1);
+}
+
+int	check_str_posint(char *str)
+{
+	while (*str)
+	{
+		if (!ft_space_or_digit(*str))
+			return (ft_error_exit(BAD_ARGS, 1));
+		++str;
+	}
+	return (0);
 }

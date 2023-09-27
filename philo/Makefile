@@ -6,7 +6,7 @@
 #    By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:21:07 by sacorder          #+#    #+#              #
-#    Updated: 2023/09/27 02:37:15 by sacorder         ###   ########.fr        #
+#    Updated: 2023/09/27 12:15:03 by sacorder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ INCLUDE = inc
 CFLAGS = -Wall -Wextra -Werror -O3 -I$(INCLUDE) #-pthread
 SRC = 	src/main.c \
 		src/utils.c \
-		src/time.c \
+		src/utils2.c \
 		src/philos.c \
 		src/controller.c \
 		src/philo_utils.c

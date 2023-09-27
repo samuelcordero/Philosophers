@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:25 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/26 13:27:45 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:12:25 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_print_dead(t_sack *sack, int id)
 	pthread_mutex_lock(&sack->printer_mutex);
 	if (!sack->print_ok)
 	{
-		sack->print_ok = !sack->print_ok;
+		sack->print_ok = 1;
 		printf("%ld %d %s\n", millis_since(sack->start_time),
 			id + 1, DEAD_MSG);
 	}
