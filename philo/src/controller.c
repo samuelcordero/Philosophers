@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:03:21 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/26 17:29:07 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/27 02:36:02 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,54 +20,6 @@ static void	killall(t_sack *sack)
 	while (++i < sack->nbr_philos)
 		set_state(&sack->philo_arr[i], -1);
 }
-
-/* void	*meal_checker(void *arg)
-{
-	t_sack *sack;
-	int		i;
-
-	sack = arg;
-	while (get_sim_state(sack) == 0)
-	{
-		i = -1;
-		while (++i < sack->nbr_philos && get_sim_state(sack) == 0)
-		{
-			if (get_meal_ctr(&sack->philo_arr[i]) < sack->meals)
-				break ;
-		}
-		if (i == sack->nbr_philos)
-		{
-			killall(sack);
-			set_sim_state(sack, 1);
-		}
-	}
-	return (NULL);
-}
-
-void	*death_checker(void *arg)
-{
-	t_sack *sack;
-	int		i;
-
-	sack = arg;
-	while (get_sim_state(sack) == 0)
-	{
-		i = -1;
-		while (++i < sack->nbr_philos && get_sim_state(sack) == 0)
-		{
-			if (millis_since(get_last_meal(&sack->philo_arr[i]))
-				> sack->time_to_die)
-			{
-				ft_print_dead(sack, i);
-				killall(sack);
-				set_sim_state(sack, 1);
-				break ;
-			}
-
-		}
-	}
-	return (NULL);
-} */
 
 void	checker(t_sack *sack)
 {
@@ -94,6 +46,9 @@ void	checker(t_sack *sack)
 	if (done == sack->nbr_philos && sack->state == 0)
 	{
 		killall(sack);
+		pthread_mutex_lock(&sack->printer_mutex);
+		sack->print_ok = 1;
+		pthread_mutex_unlock(&sack->printer_mutex);
 		sack->state = 1;
 	}
 }

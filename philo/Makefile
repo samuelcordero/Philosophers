@@ -6,13 +6,13 @@
 #    By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:21:07 by sacorder          #+#    #+#              #
-#    Updated: 2023/09/26 18:13:08 by sacorder         ###   ########.fr        #
+#    Updated: 2023/09/27 02:37:15 by sacorder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 INCLUDE = inc
-CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE) #-pthread
+CFLAGS = -Wall -Wextra -Werror -O3 -I$(INCLUDE) #-pthread
 SRC = 	src/main.c \
 		src/utils.c \
 		src/time.c \
@@ -37,7 +37,7 @@ re:: fclean
 re:: all
 
 asan:: CFLAGS += -fsanitize=address -g3
-asan:: LDFLAGS += -fsanitize=address
+asan:: LDFLAGS += -fsanitize=address -g3
 asan:: re
 
 tsan:: CFLAGS += -fsanitize=thread -g3

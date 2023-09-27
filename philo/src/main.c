@@ -6,7 +6,7 @@
 /*   By: sacorder <sacorder@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:17:07 by sacorder          #+#    #+#             */
-/*   Updated: 2023/09/26 17:29:35 by sacorder         ###   ########.fr       */
+/*   Updated: 2023/09/27 02:13:00 by sacorder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,27 @@ static int	recheck(t_sack *res)
 	if (res->nbr_philos == -1 || res->t2d == -1 || res->meals == -1
 		|| res->time_to_sleep == -1 || res->time_to_eat == -1)
 		return (1);
+	return (0);
+}
+
+int	destroy(t_sack *sack)
+{
+	int	i;
+
+	pthread_mutex_destroy(&sack->state_mutex);
+	pthread_mutex_destroy(&sack->printer_mutex);
+	i = -1;
+	while (++i < sack->nbr_philos)
+		pthread_mutex_destroy(&sack->fork_arr[i]);
+	i = -1;
+	while (++i < sack->nbr_philos)
+	{
+		pthread_mutex_destroy(&sack->philo_arr[i].state_mut);
+		pthread_mutex_destroy(&sack->philo_arr[i].timer_mut);
+		pthread_mutex_destroy(&sack->philo_arr[i].ctr_mut);
+	}
+	free(sack->philo_arr);
+	free(sack->fork_arr);
 	return (0);
 }
 
@@ -83,6 +104,7 @@ static int	start(t_sack *sack)
 	while (sack->state == 0)
 		checker(sack);
 	i = -1;
+	sack->start_time = ft_time();
 	while (++i < sack->nbr_philos)
 		pthread_join(sack->philo_arr[i].tid, NULL);
 	return (0);
@@ -99,7 +121,9 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init(&sack))
 		return (1);
-	return (start(&sack));
+	if (start(&sack))
+		return (1);
+	return (destroy(&sack));
 }
 
 /*
